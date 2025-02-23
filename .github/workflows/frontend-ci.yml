@@ -1,0 +1,38 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build Docker image
+        run: |
+          docker build -t demo.goharbor.io/myfirstapp/frontend:latest -f frontend/Dockerfile frontend
+
+      - name: Log in to Harbor
+        run: echo ${{ secrets.HARBOR_PASSWORD }} | docker login harbor.example.com -u ${{ secrets.HARBOR_USERNAME }} --password-stdin
+
+      - name: Push Docker image
+        run: docker push demo.goharbor.io/myfirstapp/frontend:latest

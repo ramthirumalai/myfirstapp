@@ -1,0 +1,38 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Build with Maven
+        run: |
+          cd backend
+          mvn clean package
+
+      - name: Build Docker image
+        run: |
+          docker build -t demo.goharbor.io/myfirstapp/backend:latest -f backend/Dockerfile backend
+
+      - name: Log in to Harbor
+        run: echo ${{ secrets.HARBOR_PASSWORD }} | docker login harbor.example.com -u ${{ secrets.HARBOR_USERNAME }} --password-stdin
+
+      - name: Push Docker image
+        run: docker push demo.goharbor.io/myfirstapp/backend:latest
