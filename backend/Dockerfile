@@ -1,6 +1,7 @@
 FROM maven:3.8.4-openjdk-11 AS build
 WORKDIR /app
-COPY . .
+COPY backend/pom.xml .  # Copy the pom.xml file
+COPY backend/src ./src  # Copy the source code
 RUN mvn clean package
 
 FROM openjdk:11-jre-slim
