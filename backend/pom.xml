@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
     <artifactId>backend</artifactId>
-   .0</version>
+    <version>1.0.0</version>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+           Id>postgresql</artifactId>
             <version>42.2.23</version>
         </dependency>
     </dependencies>
