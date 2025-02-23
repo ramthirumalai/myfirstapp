@@ -36,8 +36,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t demo.goharbor.io/myfirstapp/frontend:$GITHUB_SHA .
+          docker build -t demo.goharbor.io/myfirstapp/frontend:$GITHUB_SHA -f frontend/Dockerfile .
 
       - name: Push Docker image
         run: |
-          docker push demo.goharbor.io/myhwapp/frontend:$GITHUB_SHA
+          docker push demo.goharbor.io/myfirstapp/frontend:$GITHUB_SHA
