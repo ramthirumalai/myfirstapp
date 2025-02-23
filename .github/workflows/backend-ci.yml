@@ -27,12 +27,17 @@ jobs:
           cd backend
           mvn clean package
 
+      - name: Log in to Harbor
+        uses: docker/login-action@v2
+        with:
+           registry: demo.goharbor.io
+           username: ${{ secrets.HARBOR_USERNAME }}
+           password: ${{ secrets.HARBOR_PASSWORD }}
+
       - name: Build Docker image
         run: |
-          docker build -t demo.goharbor.io/myfirstapp/backend:latest -f backend/Dockerfile backend
-
-      - name: Log in to Harbor
-        run: echo ${{ secrets.HARBOR_PASSWORD }} | docker login harbor.example.com -u ${{ secrets.HARBOR_USERNAME }} --password-stdin
+          docker build -t demo.goharbor.io/myfirstapp/backend:$GITHUB_SHA .
 
       - name: Push Docker image
-        run: docker push demo.goharbor.io/myfirstapp/backend:latest
+        run: |
+          docker push demo.goharbor.io/myfirstapp/hello-world:$GITHUB_SHA
