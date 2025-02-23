@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: demo.goharbor.io/myfirstapp/frontend:1.0.0
+        image: demo.goharbor.io/myfirstapp/frontend:latest
         ports:
         - containerPort: 5000
