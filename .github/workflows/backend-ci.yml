@@ -34,7 +34,7 @@ jobs:
     - name: Login to Harbor
       uses: docker/login-action@v2
       with:
-        registry: ${{ secrets.HARBOR_REGISTRY }}
+        registry: demo.goharbor.io
         username: ${{ secrets.HARBOR_USERNAME }}
         password: ${{ secrets.HARBOR_PASSWORD }}
         
@@ -43,4 +43,4 @@ jobs:
       with:
         context: ./backend
         push: true
-        tags: ${{ secrets.HARBOR_REGISTRY }}/backend:${{ github.sha }}
+        tags: demo.goharbor.io/myfirstapp/backend:${{ github.sha }}
