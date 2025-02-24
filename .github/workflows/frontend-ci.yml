@@ -1,15 +1,13 @@
 name: Frontend CI Pipeline1
 
 on:
-  push:
-    branches: [main, master, develop]
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yaml'
-  pull_request:
-    branches: [main, master]
-    paths:
-      - 'frontend/**'
+    workflow_dispatch:
+    push:
+      branches:
+        - main
+    pull_request:
+      branches:
+        - main
 
 jobs:
   build:
