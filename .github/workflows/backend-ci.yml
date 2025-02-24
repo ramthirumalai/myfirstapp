@@ -39,6 +39,8 @@ jobs:
       
       - name: Build Docker image
         run: |
+          cd backend
+          pwd
           docker build -t demo.goharbor.io/myfirstapp/backend:$GITHUB_SHA -f Dockerfile .
 
       - name: Push Docker image
